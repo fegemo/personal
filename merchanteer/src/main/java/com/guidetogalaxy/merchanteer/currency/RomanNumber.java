@@ -1,14 +1,15 @@
-package com.guidetogalaxy.hitchhiker.merchanteer.currency;
+package com.guidetogalaxy.merchanteer.currency;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Vector;
 
-public final class RomanNumber {
+import com.guidetogalaxy.merchanteer.numberFormat.MalformedNumberException;
+import com.guidetogalaxy.merchanteer.numberFormat.NumberConversionException;
+import com.guidetogalaxy.merchanteer.numberFormat.NumberFormat;
+
+public final class RomanNumber implements NumberFormat {
 	private final List<RomanSymbol> representation;
 	private static final String IDENTITY = "";
 	public static final int MAX_ROMAN_INT_VALUE = 3999;
@@ -26,17 +27,17 @@ public final class RomanNumber {
 		return rep;
 	}
 	
-	public static RomanNumber fromArabicFormat(String inArabic) throws CurrencyConversionException, MalformedCurrencyException {
+	public static RomanNumber fromArabicFormat(String inArabic) throws NumberConversionException, MalformedNumberException {
 		// pre-conditions
 		try {
 			int intValue = Integer.parseInt(inArabic);
 			if (intValue < MIN_ROMAN_INT_VALUE) {
-				throw new CurrencyConversionException("The provided arabic number candidate was smaller than what can be represented by Roman numbers.");
+				throw new NumberConversionException("The provided arabic number candidate was smaller than what can be represented by Roman numbers.");
 			} else if (intValue > MAX_ROMAN_INT_VALUE) {
-				throw new CurrencyConversionException("The provided arabic number candidate was bigger than what can be represented by Roman numbers.");
+				throw new NumberConversionException("The provided arabic number candidate was bigger than what can be represented by Roman numbers.");
 			}
 		} catch (NumberFormatException ex) {
-			throw new MalformedCurrencyException("The provided arabic number candidate was not a recognized number.");
+			throw new MalformedNumberException("The provided arabic number candidate was not a recognized number.");
 		}
 		
 		RomanNumber roman = new RomanNumber(IDENTITY);
@@ -47,55 +48,13 @@ public final class RomanNumber {
 			c = inArabicChars[index];
 			int digit = Character.getNumericValue(c);
 			if (digit == -1) {
-				throw new CurrencyConversionException("At least one digit of the arabic number was not a number.");
+				throw new NumberConversionException("At least one digit of the arabic number was not a number.");
 			}
 			
 			roman.representation.addAll(convertArabicDigitIntoRoman(digit, index));
 		}
 		return roman;
 	}
-
-	/*
-	private static List<RomanSymbol> convertArabicNumberIntoRoman(int digit, int digitIndexInNumber) {
-		final RomanSymbol[] symbols = RomanSymbol.orderedValues();
-		List<RomanSymbol> roman = new ArrayList<RomanSymbol>();
-		RomanSymbol currentSymbol = null;
-		int lastUsedSymbolIndex = -1;
-		
-		while (number > 0) {
-			// Finds the first (descending order) symbol that is equal or less than the arabic number
-			for (int i = 0; i < symbols.length; i++) {
-				if (symbols[i].getIntValue() <= number) {
-					lastUsedSymbolIndex = i;
-					currentSymbol = symbols[i];
-					break;
-				}
-			}
-			
-			// If we can repeat still this symbol the necessary amount of times, we use it
-			int numberOfTimesAlreadyUsed = 0;
-			ListIterator<RomanSymbol> it = roman.listIterator(roman.size());
-			while (it.hasPrevious()) {
-				RomanSymbol s = it.previous();
-				if (s == currentSymbol) {
-					numberOfTimesAlreadyUsed++;
-				}
-			}
-			if (numberOfTimesAlreadyUsed + 1 <= currentSymbol.maxRepeat) {
-				roman.add(currentSymbol);
-				number -= currentSymbol.getIntValue();
-				continue;
-			}			
-			// Otherwise, we go back to the previous symbol and go with a subtraction
-			else {
-				
-			}
-			
-		}
-		
-		return roman;
-	}
-	*/
 	
 	private static List<RomanSymbol> convertArabicDigitIntoRoman(int digit, int magnitude) {
 		final RomanSymbol[] symbols = RomanSymbol.orderedValues();
@@ -189,6 +148,11 @@ public final class RomanNumber {
 			return orderResult;
 		}
 		
+	}
+
+	public int getIntValue() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }

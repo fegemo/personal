@@ -1,8 +1,8 @@
 package com.guidetogalaxy.hitchhiker.merchanteer;
 
-import com.guidetogalaxy.hitchhiker.merchanteer.currency.ArabicNumber;
-import com.guidetogalaxy.hitchhiker.merchanteer.currency.CurrencyConversionException;
-import com.guidetogalaxy.hitchhiker.merchanteer.currency.RomanNumber;
+import com.guidetogalaxy.merchanteer.currency.RomanNumber;
+import com.guidetogalaxy.merchanteer.numberFormat.ArabicNumber;
+import com.guidetogalaxy.merchanteer.numberFormat.NumberConversionException;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -28,7 +28,7 @@ public class RomanStepDefs {
 	public void I_parse_it_as_a_roman_number() {
 	    try {
 			this.roman = RomanNumber.fromArabicFormat(letters);
-		} catch (CurrencyConversionException e) {
+		} catch (NumberConversionException e) {
 			this.roman = null;
 		}
 	}
@@ -57,7 +57,7 @@ public class RomanStepDefs {
 	public void I_convert_it_to_arabic() {
 		try {
 			this.arabic = ArabicNumber.fromRomanFormat(romanCandidate);
-		} catch (CurrencyConversionException ex) {
+		} catch (NumberConversionException ex) {
 			this.arabic = null;
 		}
 	}
@@ -76,7 +76,7 @@ public class RomanStepDefs {
 	public void I_convert_it_to_roman() {
 		try {
 			this.roman = RomanNumber.fromArabicFormat(arabicCandidate);
-		} catch (CurrencyConversionException ex) {
+		} catch (NumberConversionException ex) {
 			this.roman = null;
 		}
 	}
