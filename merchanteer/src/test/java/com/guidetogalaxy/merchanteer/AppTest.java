@@ -1,4 +1,4 @@
-package com.guidetogalaxy.hitchhiker.merchanteer;
+package com.guidetogalaxy.merchanteer;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

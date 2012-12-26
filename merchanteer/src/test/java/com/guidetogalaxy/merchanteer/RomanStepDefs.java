@@ -1,4 +1,4 @@
-package com.guidetogalaxy.hitchhiker.merchanteer;
+package com.guidetogalaxy.merchanteer;
 
 import com.guidetogalaxy.merchanteer.currency.RomanNumber;
 import com.guidetogalaxy.merchanteer.numberFormat.ArabicNumber;
