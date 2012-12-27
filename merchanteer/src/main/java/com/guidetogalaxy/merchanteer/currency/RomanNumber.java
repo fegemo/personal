@@ -21,10 +21,10 @@ public final class RomanNumber implements NumberFormat {
 	}
 	
 	private List<RomanSymbol> buildRomanNumberRepresentation(String candidateRepresentation) {
-		List<RomanSymbol> rep = new ArrayList<RomanSymbol>();
+		List<RomanSymbol> representation = new ArrayList<RomanSymbol>();
 		
 		
-		return rep;
+		return representation;
 	}
 	
 	public static RomanNumber fromArabicFormat(String inArabic) throws NumberConversionException, MalformedNumberException {
@@ -57,9 +57,51 @@ public final class RomanNumber implements NumberFormat {
 	}
 	
 	private static List<RomanSymbol> convertArabicDigitIntoRoman(int digit, int magnitude) {
-		final RomanSymbol[] symbols = RomanSymbol.orderedValues();
 		List<RomanSymbol> roman = new ArrayList<RomanSymbol>();
 		
+		// Finds the two symbols from this magnitude
+		// Finds a third symbol (adjacent) that may be used for the last digit (the next symbol)
+		RomanSymbol[] symbols = RomanSymbol.getByMagnitude(magnitude);
+		RomanSymbol repeater = symbols[0];
+		RomanSymbol guyInTheMiddle = symbols[1];
+		RomanSymbol fromNextMagnitude = RomanSymbol.getNext(guyInTheMiddle);
+		
+		//
+		switch (digit) {
+		case 3:
+			roman.add(repeater);
+		case 2:
+			roman.add(repeater);
+		case 1:
+			roman.add(repeater);
+			break;
+		case 4:
+			roman.add(repeater);
+		case 5:
+			roman.add(guyInTheMiddle);
+			break;
+		case 6:
+			roman.add(guyInTheMiddle);
+			roman.add(repeater);
+			break;
+		case 7:
+			roman.add(guyInTheMiddle);
+			roman.add(repeater);
+			roman.add(repeater);
+			break;
+		case 8:
+			roman.add(guyInTheMiddle);
+			roman.add(repeater);
+			roman.add(repeater);
+			roman.add(repeater);
+			break;
+		case 9:
+			roman.add(repeater);
+			roman.add(fromNextMagnitude);
+			break;
+		}
+		
+		return roman;
 	}
 	
 	@Override
@@ -70,89 +112,5 @@ public final class RomanNumber implements NumberFormat {
 		}
 		return b.toString();
 	}
-	
-	
-	private enum RomanSymbol {
-		I (1,		RomanSymbolRole.REPEATER),
-		V (5, 		RomanSymbolRole.GUY_IN_THE_MIDDLE),
-		X (10,		RomanSymbolRole.REPEATER),
-		L (50,		RomanSymbolRole.GUY_IN_THE_MIDDLE),
-		C (100,		RomanSymbolRole.REPEATER),
-		D (500,		RomanSymbolRole.GUY_IN_THE_MIDDLE),
-		M (1000,	RomanSymbolRole.REPEATER);
-		
-		private final int intValue;
-		private final RomanSymbolRole role;
-		private final int magnitude;
-		private static final RomanSymbolComparator DESC_COMPARATOR = new RomanSymbolComparator(false);
-		
-		RomanSymbol(int intValue, RomanSymbolRole role) {
-			this.intValue = intValue;
-			this.role = role;
-			int magnitude = -1;
-			while (intValue > 0) {
-				magnitude++;
-				intValue /= 10;
-			}
-			this.magnitude = magnitude;
-		}
-		
-		public int getIntValue() {
-			return intValue;
-		}
-		
-		public RomanSymbolRole getRole() {
-			return role;
-		}
-		
-		public int getMagnitude() {
-			return magnitude;
-		}
-		
-		public static RomanSymbol[] orderedValues() {
-			RomanSymbol[] values = RomanSymbol.values(); 
-			Arrays.sort(values, DESC_COMPARATOR);
-			return values;
-		}
-		
-		public static RomanSymbol[] getByMagnitude(int magnitude) {
-			RomanSymbol[] values = orderedValues();
-			List<RomanSymbol> valuesOfThisMagnitude = new ArrayList<RomanSymbol>(2);
-			for (RomanSymbol s : values) {
-				if (s.magnitude == magnitude) valuesOfThisMagnitude.add(s);
-			}
-			return (RomanSymbol[]) valuesOfThisMagnitude.toArray();
-		}
-	}
-	
-	static enum RomanSymbolRole {
-		REPEATER,			// Can appear 3 times and also reduce the next two (bigger) symbols
-		GUY_IN_THE_MIDDLE	// Only appears once at most, cannot reduce other symbols
-	}
-	
-	static class RomanSymbolComparator implements Comparator<RomanSymbol>
-	{
-		private final boolean ascending;
-		
-		RomanSymbolComparator(boolean ascending) {
-			this.ascending = ascending;
-		}
-		
-		public int compare(RomanSymbol o1, RomanSymbol o2) {
-			int orderResult = 0;
-			if (ascending) {
-				orderResult = o1.intValue - o2.intValue;
-			} else {
-				orderResult = o2.intValue - o1.intValue;
-			}
-			return orderResult;
-		}
-		
-	}
-
-	public int getIntValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
 }
+
