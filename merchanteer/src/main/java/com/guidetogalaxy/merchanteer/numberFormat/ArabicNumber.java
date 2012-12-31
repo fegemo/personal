@@ -1,13 +1,13 @@
 package com.guidetogalaxy.merchanteer.numberFormat;
 
-public final class ArabicNumber {
+public final class ArabicNumber implements NumberFormat {
 	private final int representation;
-	private static final int IDENTITY = 0;
 	
-	public ArabicNumber(int representation) {
+	private ArabicNumber(int representation) {
 		this.representation = representation;
 	}
 	
+	/*
 	public static ArabicNumber fromRomanFormat(String inRoman) throws CurrencyConversionException {
 		char[] inRomanChars = inRoman.toCharArray();
 		RomanSymbol highestSymbolSofar = null;
@@ -40,9 +40,30 @@ public final class ArabicNumber {
 
 		return new ArabicNumber(arabicValue);
 	}
+	*/
+	
+	public static ArabicNumber fromString(String representation) throws MalformedNumberException {
+		Integer extractedValue = null;
+		try {
+			extractedValue = Integer.parseInt(representation);
+		} catch (NumberFormatException ex) {
+			throw new MalformedNumberException(String.format("There wasn't an integer number in the String \"%s\".", representation));
+		}
+		
+		return new ArabicNumber(extractedValue);
+	}
+	
+	public static ArabicNumber fromInt(int representation) {
+		return new ArabicNumber(representation);
+	}
 	
 	@Override
 	public String toString() {
 		return String.valueOf(representation);
+	}
+
+	@Override
+	public int getIntValue() {
+		return representation;
 	}
 }
