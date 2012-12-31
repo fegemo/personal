@@ -1,8 +1,8 @@
 package com.guidetogalaxy.merchanteer;
 
-import com.guidetogalaxy.merchanteer.currency.RomanNumber;
 import com.guidetogalaxy.merchanteer.numberFormat.ArabicNumber;
 import com.guidetogalaxy.merchanteer.numberFormat.NumberConversionException;
+import com.guidetogalaxy.merchanteer.numberFormat.RomanNumber;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

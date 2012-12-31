@@ -6,6 +6,7 @@ public interface NumberFormat {
 	 * This method is necessary so that we bring any value to a format that the machine can calculate.
 	 * 
 	 * @return an integer value that represents a number in any format.
+	 * @throws NumberConversionException 
 	 */
-	int getIntValue();
+	int getIntValue() throws NumberConversionException;
 }

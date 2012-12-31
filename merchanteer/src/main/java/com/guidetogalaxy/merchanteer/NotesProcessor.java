@@ -11,18 +11,22 @@ import java.util.Scanner;
 
 import com.guidetogalaxy.merchanteer.currency.CurrencyConversion;
 import com.guidetogalaxy.merchanteer.currency.CurrencyConversionException;
+import com.guidetogalaxy.merchanteer.numberFormat.MalformedNumberException;
 import com.guidetogalaxy.merchanteer.numberFormat.VogonDialect;
 import com.guidetogalaxy.merchanteer.numberFormat.VogonNumber;
+import com.guidetogalaxy.merchanteer.numberFormat.RomanSymbol;
 import com.guidetogalaxy.merchanteer.util.Tuple;
 
 public class NotesProcessor {
 
 	private final String filePathString;
 	private final List<Tuple<NotesLine, String>> questions;
+	private final List<Tuple<String, String>> skippedLines;
 	
 	public NotesProcessor(String filePathString) {
 		this.filePathString = filePathString;
 		this.questions = new ArrayList<>();
+		this.skippedLines = new ArrayList<>();
 	}
 	
 	public void process(OutputStream out) throws IOException {
@@ -34,18 +38,27 @@ public class NotesProcessor {
 			String line = null;
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
-				processLine(line);
+				
+				try {
+					processLine(line);
+				} catch (NotesFormatException | MalformedNumberException ex) {
+					skippedLines.add(new Tuple<>(line, ex.getMessage()));
+				}
 			}
 		}
 		
 		// traverses the list of questions and give a proper answer to them
 		for (Tuple<NotesLine, String> t : questions) {
-			answerQuestion(t.x, t.y, out);
+			try {
+				answerQuestion(t.x, t.y, out);
+			} catch (CurrencyConversionException ex) {
+				skippedLines.add(new Tuple<>(t.y, ex.getMessage()));
+			}
 		}
 		
 	}
 	
-	private void processLine(String line) {
+	private void processLine(String line) throws NotesFormatException, MalformedNumberException {
 		// tries to match a string pattern
 		NotesLine[] linePatterns = NotesLine.values();
 		
