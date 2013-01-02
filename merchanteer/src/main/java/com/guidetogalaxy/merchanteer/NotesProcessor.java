@@ -51,7 +51,7 @@ public class NotesProcessor {
 		for (Tuple<NotesLine, String> t : questions) {
 			try {
 				answerQuestion(t.x, t.y, out);
-			} catch (CurrencyConversionException ex) {
+			} catch (CurrencyConversionException|MalformedNumberException ex) {
 				skippedLines.add(new Tuple<>(t.y, ex.getMessage()));
 			}
 		}
@@ -89,7 +89,7 @@ public class NotesProcessor {
 								throw new NotesFormatException(String.format("A vogon word was used (%s), but was not declared before.", vn));
 							}
 						}
-						VogonNumber materialQuantity = new VogonNumber(regexResults[1]);
+						VogonNumber materialQuantity = VogonNumber.fromString(regexResults[1]);
 						
 												
 						// calculates how many Credits (the money currency) is one Silver|Gold|Iron (material currency) worth
@@ -119,13 +119,13 @@ public class NotesProcessor {
 		}
 	}
 	
-	private void answerQuestion(NotesLine type, String question, OutputStream out) throws IOException, CurrencyConversionException {
+	private void answerQuestion(NotesLine type, String question, OutputStream out) throws IOException, CurrencyConversionException, MalformedNumberException {
 		String[] regexResults = question.split(type.regexString);
 		String response = "";
 		switch (type) {
 		case HOW_MUCH_VOGON_ARABIC_VALUE:
 			// converts a vogon number to arabic and print the response
-			VogonNumber number = new VogonNumber(regexResults[1]);
+			VogonNumber number = VogonNumber.fromString(regexResults[1]);
 			response = type.getResponse(regexResults[1], number.getIntValue());
 			break;
 
@@ -137,7 +137,7 @@ public class NotesProcessor {
 			String originalCurrency = regexResults[3];
 			double quotationOriginalToConverted = CurrencyConversion.INSTANCE.getQuotation(originalCurrency, covertedCurrency);
 
-			VogonNumber valueInOriginalCurrency = new VogonNumber(regexResults[2]);
+			VogonNumber valueInOriginalCurrency = VogonNumber.fromString(regexResults[2]);
 			long valueInConvertedCurrency = Math.round(valueInOriginalCurrency.getIntValue() * quotationOriginalToConverted);
 
 			response = type.getResponse(regexResults[2], regexResults[3], valueInConvertedCurrency);

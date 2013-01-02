@@ -1,15 +1,16 @@
 package com.guidetogalaxy.merchanteer;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import com.guidetogalaxy.merchanteer.numberFormat.ArabicNumber;
-import com.guidetogalaxy.merchanteer.numberFormat.NumberConversionException;
+import com.guidetogalaxy.merchanteer.numberFormat.MalformedNumberException;
 import com.guidetogalaxy.merchanteer.numberFormat.RomanNumber;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
 
 public class RomanStepDefs {
 	
@@ -27,8 +28,8 @@ public class RomanStepDefs {
 	@When("^I parse it as a roman number$")
 	public void I_parse_it_as_a_roman_number() {
 	    try {
-			this.roman = RomanNumber.fromArabicFormat(letters);
-		} catch (NumberConversionException e) {
+			this.roman = RomanNumber.fromString(letters);
+		} catch (MalformedNumberException e) {
 			this.roman = null;
 		}
 	}
@@ -56,8 +57,8 @@ public class RomanStepDefs {
 	@When("^I convert it to arabic$")
 	public void I_convert_it_to_arabic() {
 		try {
-			this.arabic = ArabicNumber.fromRomanFormat(romanCandidate);
-		} catch (NumberConversionException ex) {
+			this.arabic = ArabicNumber.fromString(romanCandidate);
+		} catch (MalformedNumberException ex) {
 			this.arabic = null;
 		}
 	}
@@ -75,8 +76,8 @@ public class RomanStepDefs {
 	@When("^I convert it to roman$")
 	public void I_convert_it_to_roman() {
 		try {
-			this.roman = RomanNumber.fromArabicFormat(arabicCandidate);
-		} catch (NumberConversionException ex) {
+			this.roman = RomanNumber.fromString(arabicCandidate);
+		} catch (MalformedNumberException ex) {
 			this.roman = null;
 		}
 	}

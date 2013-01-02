@@ -8,4 +8,8 @@ public class MalformedNumberException extends Exception {
 		super(msg);
 	}
 
+	public MalformedNumberException(String msg, Exception inner) {
+		super(msg, inner);
+	}
+
 }

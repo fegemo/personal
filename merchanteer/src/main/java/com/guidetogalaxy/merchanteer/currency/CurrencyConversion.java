@@ -21,13 +21,14 @@ public enum CurrencyConversion {
 	}
 	
 	public double getQuotation(String currencyName, String otherCurrencyName) throws CurrencyConversionException {
+		// tries to get the direct and counter-direct way
 		if (quotations.containsKey(currencyName) && quotations.get(currencyName).containsKey(otherCurrencyName)) {
 			return quotations.get(currencyName).get(otherCurrencyName);
 		} else if (quotations.containsKey(otherCurrencyName) && quotations.get(otherCurrencyName).containsKey(currencyName)) {
 			return 1/quotations.get(otherCurrencyName).get(currencyName);
 		}
 		
-		// No conversion rules found for these currencies
+		// no conversion rules found for these currencies
 		throw new CurrencyConversionException(String.format("There was no suitable conversion to be made between %s and %s.", currencyName, otherCurrencyName));
 	}
 	

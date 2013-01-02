@@ -8,5 +8,5 @@ public interface NumberFormat {
 	 * @return an integer value that represents a number in any format.
 	 * @throws NumberConversionException 
 	 */
-	int getIntValue() throws NumberConversionException;
+	int getIntValue();
 }

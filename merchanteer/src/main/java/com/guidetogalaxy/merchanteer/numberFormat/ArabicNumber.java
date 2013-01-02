@@ -47,7 +47,7 @@ public final class ArabicNumber implements NumberFormat {
 		try {
 			extractedValue = Integer.parseInt(representation);
 		} catch (NumberFormatException ex) {
-			throw new MalformedNumberException(String.format("There wasn't an integer number in the String \"%s\".", representation));
+			throw new MalformedNumberException(String.format("There wasn't an integer number in the String \"%s\".", representation), ex);
 		}
 		
 		return new ArabicNumber(extractedValue);
@@ -55,6 +55,16 @@ public final class ArabicNumber implements NumberFormat {
 	
 	public static ArabicNumber fromInt(int representation) {
 		return new ArabicNumber(representation);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof ArabicNumber && ((ArabicNumber)obj).representation == representation;
+	}
+	
+	@Override
+	public int hashCode() {
+		return representation;
 	}
 	
 	@Override

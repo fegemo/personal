@@ -1,57 +1,56 @@
 package com.guidetogalaxy.merchanteer.numberFormat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 public enum RomanSymbol {
-	I (1, 3, true),
-	V (5, 1, false),
-	X (10, 3, true),
-	L (50, 1, false),
-	C (100, 3, true),
-	D (500, 1, false),
-	M (1000, 3, true);
+	I (1, RomanSymbolType.REPEATER),
+	V (5, RomanSymbolType.DEDUCIBLE),
+	X (10, RomanSymbolType.REPEATER),
+	L (50, RomanSymbolType.DEDUCIBLE),
+	C (100, RomanSymbolType.REPEATER),
+	D (500, RomanSymbolType.DEDUCIBLE),
+	M (1000, RomanSymbolType.REPEATER);
 	
 	private final int intValue;
-	private final int maxRepeat;
-	private final boolean canSubtractNextTwoSymbols;
-	private final int magnitude;
+	private final RomanSymbolType type;
+
 	private static final RomanSymbolComparator DESC_COMPARATOR = new RomanSymbolComparator(false);
 	private static final RomanSymbolComparator ASC_COMPARATOR = new RomanSymbolComparator(true);
 	
-	RomanSymbol(int intValue, int maxRepeat, boolean canSubtractNextTwoSymbols) {
+	RomanSymbol(int intValue, RomanSymbolType type) {
 		this.intValue = intValue;
-		this.maxRepeat = maxRepeat;
-		this.canSubtractNextTwoSymbols = canSubtractNextTwoSymbols;
+		this.type = type;
+		/*
 		int magnitude = -1;
 		while (intValue > 0) {
 			magnitude++;
 			intValue /= 10;
 		}
 		this.magnitude = magnitude;
+		*/
 	}
 	
 	public int getIntValue() {
 		return intValue;
 	}
-	
-	public int getMaxRepeat() {
-		return maxRepeat;
+
+	public RomanSymbolType getType() {
+		return type;
 	}
 	
 	/**
+	 * Determines whether the first symbol can be subtracted from the second.
 	 * 
 	 * @param minuend the initial quantity, i.e., the one that we have before subtraction.
 	 * @param subtrahend what it going to be subtracted from the initial quantity.
-	 * @return
+	 * @return true if the first symbol can be subtracted from the second or false, otherwise.
 	 */
-	public boolean canSubtract(RomanSymbol minuend, RomanSymbol subtrahend) {
-		return subtrahend.canSubtractNextTwoSymbols && (minuend == getNext(subtrahend) || (getNext(subtrahend) != null && minuend == getNext(getNext(subtrahend))));
+	public static boolean canSubtract(RomanSymbol minuend, RomanSymbol subtrahend) {
+		return subtrahend.type.getCanSubtractNextTwoSymbols() && (minuend == getNext(subtrahend) || (getNext(subtrahend) != null && minuend == getNext(getNext(subtrahend))));
 	}
 
-	public static RomanSymbol getNext(RomanSymbol s) {
+	private static RomanSymbol getNext(RomanSymbol s) {
 		RomanSymbol[] values = RomanSymbol.orderedValues(true);
 		for (RomanSymbol i : values) {
 			if (i.intValue > s.intValue) {
@@ -70,12 +69,14 @@ public enum RomanSymbol {
 		
 	}
 	
-	public static RomanSymbol[] orderedValues(boolean ascending) {
+	
+	private static RomanSymbol[] orderedValues(boolean ascending) {
 		RomanSymbol[] values = RomanSymbol.values(); 
 		Arrays.sort(values, ascending ? ASC_COMPARATOR : DESC_COMPARATOR);
 		return values;
 	}
 	
+	/*
 	public static RomanSymbol[] getByMagnitude(int magnitude) {
 		RomanSymbol[] values = orderedValues(true);
 		List<RomanSymbol> valuesOfThisMagnitude = new ArrayList<RomanSymbol>(2);
@@ -83,6 +84,28 @@ public enum RomanSymbol {
 			if (s.magnitude == magnitude) valuesOfThisMagnitude.add(s);
 		}
 		return (RomanSymbol[]) valuesOfThisMagnitude.toArray();
+	}
+	*/
+}
+
+enum RomanSymbolType {
+	REPEATER	(3, true),
+	DEDUCIBLE	(1, false);
+	
+	private final int maxRepeat;
+	private final boolean canSubtractNextTwoSymbols;
+
+	RomanSymbolType(int maxRepeat, boolean canSubtractNextTwoSymbols) {
+		this.maxRepeat = maxRepeat;
+		this.canSubtractNextTwoSymbols = canSubtractNextTwoSymbols;
+	}
+	
+	int getMaxRepeat() {
+		return maxRepeat;
+	}
+	
+	boolean getCanSubtractNextTwoSymbols() {
+		return canSubtractNextTwoSymbols;
 	}
 }
 
