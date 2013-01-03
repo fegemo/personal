@@ -97,7 +97,7 @@ public class RomanNumberTest {
 		try {
 			RomanNumber.fromString(roman);
 		} catch (MalformedNumberException ex) {
-			fail(wellformedNumberMessage);
+			fail(String.format("%s %s", wellformedNumberMessage, ex.getMessage()));
 		}
 		
 	}

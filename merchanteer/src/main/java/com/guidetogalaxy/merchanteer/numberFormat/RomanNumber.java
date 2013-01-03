@@ -118,22 +118,31 @@ public class RomanNumber implements NumberFormat {
 		return b.toString();
 	}
 
-	@Override
 	public int getIntValue() {
 		int bucket = 0;
-		RomanSymbol lastSymbol = null;
+		RomanSymbol lastSymbol = representation.get(0);
 		
-		for (RomanSymbol symbol : representation) {
-			// check if we need to add or subtract the current symbol
-			if (symbol.getIntValue() <= lastSymbol.getIntValue()) {
-				bucket += symbol.getIntValue();
-			} else {
-				// subtract
-				bucket -= symbol.getIntValue();
+		for (RomanSymbol current : representation) {
+			bucket += current.getIntValue();
+			if (current.getIntValue() > lastSymbol.getIntValue()) {
+				bucket -= 2*lastSymbol.getIntValue();
 			}
 			
-			lastSymbol = symbol;
+			lastSymbol = current;
 		}
+		
+		/*
+		for (RomanSymbol current : representation.subList(1, representation.size() - 1)) {
+			// check if we need to add or subtract the previous symbol
+			if (current.getIntValue() <= lastSymbol.getIntValue()) {
+				bucket += current.getIntValue();
+			} else {
+				// subtract
+				bucket -= current.getIntValue();
+			}
+			
+			lastSymbol = current;
+		}*/
 		
 		return bucket;
 	}
@@ -165,7 +174,7 @@ public class RomanNumber implements NumberFormat {
 			boolean canLastSubtractCurrent = !isFirstSymbol && RomanSymbol.canSubtract(current, lastSymbol);
 			
 			// asserting (a) that the symbols are in decreasing order
-			if (current.getIntValue() > highestValue) {
+			if (current.getIntValue() > highestValue && !canLastSubtractCurrent) {
 				throw new MalformedNumberException(String.format("There is a roman symbol (\"%s\" in the position %d) higher than the highest (\"%s\"). The decreasing order rule was hurt.", current, i + 1, lastSymbol));
 			}
 			

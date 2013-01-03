@@ -7,6 +7,6 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ ArabicNumberTest.class, RomanNumberTest.class,
 		RomanSymbolTest.class })
-public class NumberFormatTests {
+public class NumberFormatSuite {
 
 }
