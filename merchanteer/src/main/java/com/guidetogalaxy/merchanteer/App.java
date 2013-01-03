@@ -21,7 +21,7 @@ public class App
         	if (shouldLoadFilefromArgs) {
         		input = new FileInputStream(new File(args[0]));
         	} else {
-        		input = App.class.getClassLoader().getResourceAsStream("provided_test_input.txt");
+        		input = App.class.getClassLoader().getResourceAsStream("provided_test.input.txt");
         	}
 
         	processor = new NotesProcessor(input);
@@ -29,8 +29,6 @@ public class App
 			
         } catch (FileNotFoundException|NoSuchFileException e) {
 			System.out.println(String.format("Unable to find the provided file: %s.", args[0]));
-			System.out.println(String.format("Runing from %s.\n", new File(App.class.getProtectionDomain().getCodeSource().getLocation().getPath())));
-			e.printStackTrace();
 			
 		} catch (IOException e) {
 			e.printStackTrace();

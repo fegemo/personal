@@ -8,96 +8,14 @@ import java.util.Map;
 
 public class RomanNumber implements NumberFormat {
 	private final List<RomanSymbol> representation;
-	/*private static final String IDENTITY = "";*/
 	
 	private RomanNumber(List<RomanSymbol> symbols) {
 		this.representation = symbols;
 	}
 	
-	/*
-	public static RomanNumber fromArabicFormat(String inArabic) throws NumberConversionException, MalformedNumberException {
-		// pre-conditions
-		try {
-			int intValue = Integer.parseInt(inArabic);
-			if (intValue < MIN_ROMAN_INT_VALUE) {
-				throw new NumberConversionException("The provided arabic number candidate was smaller than what can be represented by Roman numbers.");
-			} else if (intValue > MAX_ROMAN_INT_VALUE) {
-				throw new NumberConversionException("The provided arabic number candidate was bigger than what can be represented by Roman numbers.");
-			}
-		} catch (NumberFormatException ex) {
-			throw new MalformedNumberException("The provided arabic number candidate was not a recognized number.");
-		}
-		
-		RomanNumber roman = new RomanNumber(IDENTITY);
-		
-		char[] inArabicChars = inArabic.toCharArray();
-		char c;
-		for (int index = 0; index < inArabicChars.length; index++) {
-			c = inArabicChars[index];
-			int digit = Character.getNumericValue(c);
-			if (digit == -1) {
-				throw new NumberConversionException("At least one digit of the arabic number was not a number.");
-			}
-			
-			roman.representation.addAll(convertArabicDigitIntoRoman(digit, index));
-		}
-		return roman;
-	}
-	*/
-	
-	/*
-	private static List<RomanSymbol> convertArabicDigitIntoRoman(int digit, int magnitude) {
-		List<RomanSymbol> roman = new ArrayList<RomanSymbol>();
-		
-		// Finds the two symbols from this magnitude
-		// Finds a third symbol (adjacent) that may be used for the last digit (the next symbol)
-		RomanSymbol[] symbols = RomanSymbol.getByMagnitude(magnitude);
-		RomanSymbol repeater = symbols[0];
-		RomanSymbol guyInTheMiddle = symbols[1];
-		RomanSymbol fromNextMagnitude = RomanSymbol.getNext(guyInTheMiddle);
-		
-		//
-		switch (digit) {
-		case 3:
-			roman.add(repeater);
-		case 2:
-			roman.add(repeater);
-		case 1:
-			roman.add(repeater);
-			break;
-		case 4:
-			roman.add(repeater);
-		case 5:
-			roman.add(guyInTheMiddle);
-			break;
-		case 6:
-			roman.add(guyInTheMiddle);
-			roman.add(repeater);
-			break;
-		case 7:
-			roman.add(guyInTheMiddle);
-			roman.add(repeater);
-			roman.add(repeater);
-			break;
-		case 8:
-			roman.add(guyInTheMiddle);
-			roman.add(repeater);
-			roman.add(repeater);
-			roman.add(repeater);
-			break;
-		case 9:
-			roman.add(repeater);
-			roman.add(fromNextMagnitude);
-			break;
-		}
-		
-		return roman;
-	}
-	*/
-	
 	public static RomanNumber fromString(String representation) throws MalformedNumberException {
 		List<RomanSymbol> symbols = new ArrayList<>();
-		char[] representationChars = representation.toCharArray();
+		char[] representationChars = representation.toUpperCase().toCharArray();
 		
 		for (char c : representationChars) {
 			RomanSymbol symbol = RomanSymbol.fromCharacter(c);
@@ -130,20 +48,7 @@ public class RomanNumber implements NumberFormat {
 			
 			lastSymbol = current;
 		}
-		
-		/*
-		for (RomanSymbol current : representation.subList(1, representation.size() - 1)) {
-			// check if we need to add or subtract the previous symbol
-			if (current.getIntValue() <= lastSymbol.getIntValue()) {
-				bucket += current.getIntValue();
-			} else {
-				// subtract
-				bucket -= current.getIntValue();
-			}
-			
-			lastSymbol = current;
-		}*/
-		
+	
 		return bucket;
 	}
 	
@@ -160,6 +65,9 @@ public class RomanNumber implements NumberFormat {
 	 * @throws MalformedNumberException 
 	 */
 	private static void validateRomanSequence(List<RomanSymbol> symbols) throws MalformedNumberException {
+		if (symbols.size() == 0) {
+			throw new MalformedNumberException("The number was empty.");
+		}
 		int highestValue = symbols.get(0).getIntValue();
 		RomanSymbol lastSymbol = null;
 		Map<RomanSymbol, Integer> usages = new HashMap<>(RomanSymbol.values().length); 

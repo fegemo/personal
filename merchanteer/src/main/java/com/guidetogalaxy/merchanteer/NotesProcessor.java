@@ -98,7 +98,7 @@ public class NotesProcessor {
 						
 												
 						// calculates how many Credits (the money currency) is one Silver|Gold|Iron (material currency) worth
-						double ratio = numberOfSecondCurrency / materialQuantity.getIntValue();
+						double ratio = numberOfSecondCurrency / (float)materialQuantity.getIntValue();
 						
 						// adds an entry to the quotations table
 						CurrencyConversion.INSTANCE.addQuotation(firstCurrency, secondCurrency, ratio);
@@ -214,7 +214,7 @@ public class NotesProcessor {
 		}
 	}
 	
-	enum NotesLineType {
+	private enum NotesLineType {
 		DEFINITION,
 		QUESTION,
 		UNKNOWN;

@@ -8,7 +8,26 @@
 	<packaging>jar</packaging>
 
 	<name>merchanteer</name>
-	<url>http://maven.apache.org</url>
+	<url>http://merchanteer.guidetogalaxy.com</url>
+	<inceptionYear>2012</inceptionYear>
+
+	<developers>
+		<developer>
+			<id>singleDev</id>
+			<name>Flávio Coutinho</name>
+			<email>fegemo@gmail.com</email>
+			<organization>Merchanteer's Guide to the Galaxy</organization>
+			<url>http://dcc.ufmg.br/~flavioro</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/fegemo/personal.git</connection>
+		<developerConnection>scm:git:https://github.com/fegemo/personal.git</developerConnection>
+		<tag>master</tag>
+		<url>scm:git:https://github.com/fegemo/personal</url>
+	</scm>
+	
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -79,6 +98,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.13</version>
 				<configuration>
 					<jvm>${JAVA7_HOME}/bin/java</jvm>
 				</configuration>
@@ -98,41 +118,47 @@
 						<configuration>
 							<executable>${JAVA7_HOME}/bin/java</executable>
 							<arguments>
+								<argument>-Djava.util.logging.config.file=src/main/resources/logging.properties</argument>
 								<argument>-classpath</argument>
 								<classpath />
 								<argument>com.guidetogalaxy.merchanteer.App</argument>
-								<!-- <argument>provided_test_input.txt</argument> -->
 							</arguments>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<!-- Copies the test files to the output directory -->
-			<!-- 
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.6</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.12</version>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
+						<id>integration-test</id>
 						<goals>
-							<goal>copy-resources</goal>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
 						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/input</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/main/resources</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			 -->
 		</plugins>
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.13</version>
+				<configuration>
+					<jvm>${JAVA7_HOME}/bin/java</jvm>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+		</plugins>
+	</reporting>
 
 </project>

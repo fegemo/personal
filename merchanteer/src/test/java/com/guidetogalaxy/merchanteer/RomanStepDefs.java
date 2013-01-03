@@ -57,7 +57,7 @@ public class RomanStepDefs {
 	@When("^I convert it to arabic$")
 	public void I_convert_it_to_arabic() {
 		try {
-			this.arabic = ArabicNumber.fromString(romanCandidate);
+			this.arabic = ArabicNumber.fromString(String.valueOf(RomanNumber.fromString(romanCandidate).getIntValue()));
 		} catch (MalformedNumberException ex) {
 			this.arabic = null;
 		}

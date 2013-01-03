@@ -41,12 +41,12 @@ Feature: Roman number evaluation
 			| CL				| should				| CL		|
 			| CD				| should				| CD		|
 			| CM				| should				| CM		|
-			| DI				| should				| DI		|
-			| DV				| should				| DV		|
-			| DX				| should				| DX		|
-			| DL				| should				| DL		|
-			| DC				| should				| DC		|
-			| DM				| should				| DM		|
+			| DI				| should				| DI  		|
+			| DV				| should				| DV  		|
+			| DX				| should				| DX   		|
+			| DL				| should				| DL   		|
+			| DC				| should				| DC   		|
+			| DM				| should not			|   		|
 
 
 	Scenario Outline: Convert roman to arabic
@@ -62,30 +62,3 @@ Feature: Roman number evaluation
 			| MCMIII		| 1903		|
 			| I				| 1			|
 			| MMMCMXCIX		| 3999		|
-	
-	
-	Scenario Outline: Convert arabic to roman
-		Given I have the number <arabic> in arabic
-		When I convert it to roman
-		Then the roman result should be <roman>
-		
-		Examples:
-			| arabic		| roman			|
-			| 2004			| MMIV			|
-			| 2000			| MM			|
-			| 1944			| MCMXLIV		|
-			| 1903			| MCMIII		|
-			| 1				| I				|
-			| 3999			| MMMCMXCIX		|
-	
-	
-	Scenario Outline: Convert arabic to roman that can't be represented with 7 symbols notation
-		Given I have the number <arabic> in arabic
-		When I convert it to roman
-		Then the conversion should fail as the number cannot be represented in roman notation
-		
-		Examples:
-			| arabic 	|
-			| 0			|
-			| -1		|
-			| 4000		|
