@@ -84,7 +84,6 @@ public class NotesProcessor {
 						
 					case VOGON_CURRENCY_QUOTATION:
 						// parses to check if all the vogon words have been declared
-						//String[] regexResults = line.split(lp.regexString);
 						String[] vogonNumbers = m.group(1).split("\\s");
 						String firstCurrency = m.group(2);
 						Integer numberOfSecondCurrency = Integer.parseInt(m.group(3));
