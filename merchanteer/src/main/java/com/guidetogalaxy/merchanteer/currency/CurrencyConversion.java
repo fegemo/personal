@@ -1,13 +1,17 @@
 package com.guidetogalaxy.merchanteer.currency;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
-
+/**
+ * A conversion table utility that enables transforming values from one currency to another,
+ * when there is a direct quotation between the two currencies or when one can be inferred.
+ * 
+ * @author flávio coutinho
+ *
+ */
 public enum CurrencyConversion {
 	INSTANCE;
 	
@@ -62,10 +66,10 @@ public enum CurrencyConversion {
 	}
 	
 	private Double getTransitiveQuotation(String currencyName, String otherCurrencyName) throws CurrencyConversionException {
-		return getTransitiveQuotationRecursive(currencyName, otherCurrencyName, currencyName, new ArrayDeque<String>());
+		return getTransitiveQuotationRecursive(currencyName, otherCurrencyName, currencyName, new ArrayList<String>());
 	}
 	
-	private Double getTransitiveQuotationRecursive(String currencyName, String otherCurrencyName, String lastCurrencyName, Deque<String> exhaustedTries) throws CurrencyConversionException {
+	private Double getTransitiveQuotationRecursive(String currencyName, String otherCurrencyName, String lastCurrencyName, List<String> exhaustedTries) throws CurrencyConversionException {
 		// tries to get a quotation the direct way
 		// this is the stop condition for the recursion
 		if (quotations.containsKey(lastCurrencyName) && quotations.get(lastCurrencyName).containsKey(otherCurrencyName)) {
@@ -73,15 +77,18 @@ public enum CurrencyConversion {
 		}
 		
 		Map<String, Double> currentCurrencyQuotations = quotations.get(lastCurrencyName);
-		Deque<String> tries = new ArrayDeque<>();
 		
 		for (String currentCurrencyName : currentCurrencyQuotations.keySet()) {
 			if (currentCurrencyName.equals(lastCurrencyName) || currentCurrencyName.equals(currencyName) || exhaustedTries.contains(currentCurrencyName)) {
 				continue;
 			}
 			
-			tries.push(currentCurrencyName);
-			return currentCurrencyQuotations.get(currentCurrencyName) * getTransitiveQuotationRecursive(currencyName, otherCurrencyName, currentCurrencyName, tries);
+			// marks this currency (currentCurrencyName) as having been visited
+			exhaustedTries.add(currentCurrencyName);
+			Double henceforwardResult = getTransitiveQuotationRecursive(currencyName, otherCurrencyName, currentCurrencyName, exhaustedTries);
+			if (henceforwardResult != null) {
+				return currentCurrencyQuotations.get(currentCurrencyName) * henceforwardResult;
+			}
 		}
 		
 		
