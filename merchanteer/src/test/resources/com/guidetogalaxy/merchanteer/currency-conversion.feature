@@ -21,14 +21,14 @@ Feature: Convert among currencies considering different quotations
 		When I convert 80 "Gold" to "Credits"
 		Then the result should be 8000
 		
-#	Scenario: valid, transitive conversions
-#		Given one "Iron" is worth 10 "Credits"
-#		And one "Gold" is worth 100 "Credits"
-#		And one "Silver" is worth 2 "Iron"
-#		And one "Gold" is worth 10 "Iron"
-#		When I convert 30 "Gold" to "Silver"
-#		Then the result should be 150
-#		And a new quotation from "Gold" to "Silver" should be added to the table: "5"
+	Scenario: valid, transitive conversions
+		Given one "Iron" is worth 10 "Credits"
+		And one "Gold" is worth 100 "Credits"
+		And one "Silver" is worth 2 "Iron"
+		And one "Gold" is worth 10 "Iron"
+		When I convert 30 "Gold" to "Silver"
+		Then the result should be 150
+		And a new quotation from "Gold" to "Silver" should be added to the table: "5"
 	
 	Scenario: invalid conversions
 		Given one "Iron" is worth 10 "Credits"

@@ -52,8 +52,10 @@ public final class VogonNumber implements NumberFormat {
 		
 		return new VogonNumber(representation, roman);
 	}
-	
-	@Override
+
+	/**
+	 * Returns an integer value for this VogonNumber.
+	 */
 	public int getIntValue() {
 		return equivalentRomanNumber.getIntValue();
 	}

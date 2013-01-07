@@ -5,14 +5,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * A number in the roman format.
+ * 
+ * The only way to create Roman values are by using static constructors that turn objects in
+ * other formats to Roman (String).
+ * 
+ * @author flávio coutinho
+ *
+ */
 public class RomanNumber implements NumberFormat {
 	private final List<RomanSymbol> representation;
 	
+	/**
+	 * Builds a roman number from a series of roman symbols.
+	 * 
+	 * @param symbols The symbols (I, V, X etc.) that build up this roman number.
+	 */
 	private RomanNumber(List<RomanSymbol> symbols) {
 		this.representation = symbols;
 	}
 	
+	/**
+	 * Creates a roman number from a string by parsing the roman symbols inside it.
+	 * 
+	 * @param representation The string with the roman symbols. 
+	 * @return The created RomanNumber. 
+	 * @throws MalformedNumberException In case the symbols are invalid or do not match the roman
+	 * numbers rules.
+	 */
 	public static RomanNumber fromString(String representation) throws MalformedNumberException {
 		List<RomanSymbol> symbols = new ArrayList<>();
 		char[] representationChars = representation.toUpperCase().toCharArray();
@@ -36,6 +57,9 @@ public class RomanNumber implements NumberFormat {
 		return b.toString();
 	}
 
+	/**
+	 * Converts and returns this roman number to integer.
+	 */
 	public int getIntValue() {
 		int bucket = 0;
 		RomanSymbol lastSymbol = representation.get(0);
@@ -61,7 +85,6 @@ public class RomanNumber implements NumberFormat {
 	 *  (c) a symbol can only subtract the two next symbols in increasing order
 	 *  
 	 * @param symbols
-	 * @return
 	 * @throws MalformedNumberException 
 	 */
 	private static void validateRomanSequence(List<RomanSymbol> symbols) throws MalformedNumberException {

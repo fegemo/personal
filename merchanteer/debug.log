@@ -1,39 +1,40 @@
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: glob is I
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: prok is V
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: pish is X
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: tegj is L
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: glob glob Silver is 34 Credits
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_CURRENCY_QUOTATION matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: glob prok Gold is 57800 Credits
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_CURRENCY_QUOTATION matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: pish pish Iron is 3910 Credits
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_CURRENCY_QUOTATION matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how much is pish tegj glob glob ?
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MUCH_VOGON_ARABIC_VALUE matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how many Credits is glob prok Silver ?
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MANY_VOGON_CREDITS_VALUE matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how many Credits is glob prok Gold ?
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MANY_VOGON_CREDITS_VALUE matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how many Credits is glob prok Iron ?
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MANY_VOGON_CREDITS_VALUE matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how much wood could a woodchuck chuck if a woodchuck could chuck wood ?
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern CRAZY_LINE_OR_VOGON_POETRY matched!
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as an unkown phrase.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how much is pish tegj glob glob ? of type HOW_MUCH_VOGON_ARABIC_VALUE.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: pish tegj glob glob is 42
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how many Credits is glob prok Silver ? of type HOW_MANY_VOGON_CREDITS_VALUE.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: glob prok Silver is 68 Credits
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how many Credits is glob prok Gold ? of type HOW_MANY_VOGON_CREDITS_VALUE.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: glob prok Gold is 57800 Credits
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how many Credits is glob prok Iron ? of type HOW_MANY_VOGON_CREDITS_VALUE.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: glob prok Iron is 782 Credits
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how much wood could a woodchuck chuck if a woodchuck could chuck wood ? of type CRAZY_LINE_OR_VOGON_POETRY.
-[INFO]	06:40:37 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: I have no idea what you are talking about
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: glob is I
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: prok is V
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: pish is X
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: tegj is L
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_ROMAN_MAPPING matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: glob glob Silver is 34 Credits
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_CURRENCY_QUOTATION matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: glob prok Gold is 57800 Credits
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_CURRENCY_QUOTATION matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: pish pish Iron is 3910 Credits
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern VOGON_CURRENCY_QUOTATION matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how much is pish tegj glob glob ?
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MUCH_VOGON_ARABIC_VALUE matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how many Credits is glob prok Silver ?
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MANY_VOGON_CREDITS_VALUE matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how many Credits is glob prok Gold ?
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MANY_VOGON_CREDITS_VALUE matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how many Credits is glob prok Iron ?
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern HOW_MANY_VOGON_CREDITS_VALUE matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as a question.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Reading line: how much wood could a woodchuck chuck if a woodchuck could chuck wood ?
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: 	The pattern CRAZY_LINE_OR_VOGON_POETRY matched!
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.processLine: Added the line as an unkown phrase.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how much is pish tegj glob glob ? of type HOW_MUCH_VOGON_ARABIC_VALUE.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: pish tegj glob glob is 42
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how many Credits is glob prok Silver ? of type HOW_MANY_VOGON_CREDITS_VALUE.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: glob prok Silver is 68 Credits
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how many Credits is glob prok Gold ? of type HOW_MANY_VOGON_CREDITS_VALUE.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: glob prok Gold is 57800 Credits
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how many Credits is glob prok Iron ? of type HOW_MANY_VOGON_CREDITS_VALUE.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: glob prok Iron is 782 Credits
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Answering question: how much wood could a woodchuck chuck if a woodchuck could chuck wood ? of type CRAZY_LINE_OR_VOGON_POETRY.
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.answerQuestion: Responding: I have no idea what you are talking about
+[INFO]	07:02:28 com.guidetogalaxy.merchanteer.NotesProcessor.process: Lines skipped: 0

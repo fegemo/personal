@@ -3,6 +3,12 @@ package com.guidetogalaxy.merchanteer.numberFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * An enumeration of the valid roman symbols that are recognized by the Merchanteer program.
+ * 
+ * @author flávio coutinho
+ *
+ */
 public enum RomanSymbol {
 	I (1, RomanSymbolType.REPEATER),
 	V (5, RomanSymbolType.DEDUCIBLE),
@@ -21,20 +27,22 @@ public enum RomanSymbol {
 	RomanSymbol(int intValue, RomanSymbolType type) {
 		this.intValue = intValue;
 		this.type = type;
-		/*
-		int magnitude = -1;
-		while (intValue > 0) {
-			magnitude++;
-			intValue /= 10;
-		}
-		this.magnitude = magnitude;
-		*/
 	}
 	
+	/**
+	 * Returns the integer value of the symbol.
+	 * 
+	 * @return The integer value of the symbol.
+	 */
 	public int getIntValue() {
 		return intValue;
 	}
 
+	/**
+	 * Returns the type of the symbol in a roman number (that says if it can repeat etc.).
+	 * 
+	 * @return The type of the symbol.
+	 */
 	public RomanSymbolType getType() {
 		return type;
 	}
@@ -50,6 +58,12 @@ public enum RomanSymbol {
 		return subtrahend.type.getCanSubtractNextTwoSymbols() && (minuend == getNext(subtrahend) || (getNext(subtrahend) != null && minuend == getNext(getNext(subtrahend))));
 	}
 
+	/**
+	 * Returns the next roman symbol in increasing value.
+	 * 
+	 * @param s The symbol of which we're querying the next.
+	 * @return The next roman symbol.
+	 */
 	private static RomanSymbol getNext(RomanSymbol s) {
 		RomanSymbol[] values = RomanSymbol.orderedValues(true);
 		for (RomanSymbol i : values) {
@@ -60,6 +74,13 @@ public enum RomanSymbol {
 		return null;
 	}
 	
+	/**
+	 * Returns a RomanSymbol instance from a character (i, v, etc.).
+	 * 
+	 * @param s The character that represents the symbol.
+	 * @return The matching RomanSymbol instance.
+	 * @throws MalformedNumberException In case the character does not represent a valid RomanSymbol. 
+	 */
 	public static RomanSymbol fromCharacter(char s) throws MalformedNumberException {
 		try {
 			return RomanSymbol.valueOf(String.valueOf(s));			
@@ -69,25 +90,26 @@ public enum RomanSymbol {
 		
 	}
 	
-	
+	/**
+	 * Returns a list of all RomanSymbol instances ordered by increasing or decreasing value.
+	 * 
+	 * @param ascending True if the order should be ascending, false otherwise.
+	 * @return a list of all ordered RomanSymbol instances. 
+	 */
 	private static RomanSymbol[] orderedValues(boolean ascending) {
 		RomanSymbol[] values = RomanSymbol.values(); 
 		Arrays.sort(values, ascending ? ASC_COMPARATOR : DESC_COMPARATOR);
 		return values;
 	}
-	
-	/*
-	public static RomanSymbol[] getByMagnitude(int magnitude) {
-		RomanSymbol[] values = orderedValues(true);
-		List<RomanSymbol> valuesOfThisMagnitude = new ArrayList<RomanSymbol>(2);
-		for (RomanSymbol s : values) {
-			if (s.magnitude == magnitude) valuesOfThisMagnitude.add(s);
-		}
-		return (RomanSymbol[]) valuesOfThisMagnitude.toArray();
-	}
-	*/
 }
 
+/**
+ * The type of a roman symbol. It represents the role of a symbol in a roman number,
+ * which can be used for validation purposes.
+ * 
+ * @author flávio coutinho
+ *
+ */
 enum RomanSymbolType {
 	REPEATER	(3, true),
 	DEDUCIBLE	(1, false);
@@ -100,15 +122,32 @@ enum RomanSymbolType {
 		this.canSubtractNextTwoSymbols = canSubtractNextTwoSymbols;
 	}
 	
+	/**
+	 * Returns the max number the symbol can repeat.
+	 * 
+	 * @return The max number the symbol can repeat.
+	 */
 	int getMaxRepeat() {
 		return maxRepeat;
 	}
 	
+	/**
+	 * Returns if this symbol can subtract other symbols in a roman number.
+	 * 
+	 * @return If this symbol can subtract other symbols in a roman number.
+	 */
 	boolean getCanSubtractNextTwoSymbols() {
 		return canSubtractNextTwoSymbols;
 	}
 }
 
+
+/**
+ * A comparator that considers the integer value of each symbol to sort them.
+ * 
+ * @author flávio coutinho
+ *
+ */
 class RomanSymbolComparator implements Comparator<RomanSymbol>
 {
 	private final boolean ascending;

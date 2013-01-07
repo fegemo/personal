@@ -1,47 +1,36 @@
 package com.guidetogalaxy.merchanteer.numberFormat;
 
+/**
+ * A number format that uses arabic digits on base 10. It's Earth's most common number format
+ * by the time the merchant left.
+ * 
+ * The only way to create Arabic values are by using static constructors that turn objects in
+ * other formats to Arabic (String, int).
+ * 
+ * The class is immutable.
+ * 
+ * @author flávio coutinho
+ *
+ */
 public final class ArabicNumber implements NumberFormat {
 	private final int representation;
 	
+	/**
+	 * Creates a number from an integer value.
+	 * 
+	 * @param representation the value representing this number.
+	 */
 	private ArabicNumber(int representation) {
 		this.representation = representation;
 	}
-	
-	/*
-	public static ArabicNumber fromRomanFormat(String inRoman) throws CurrencyConversionException {
-		char[] inRomanChars = inRoman.toCharArray();
-		RomanSymbol highestSymbolSofar = null;
-		RomanSymbol lastSymbol = null;
-		int numberOfHighestNumberAppearences = 0;
-		int arabicValue = 0;
-		
-		for (char character : inRomanChars) {
-			RomanSymbol symbol = null;
-			try {
-				symbol = RomanSymbol.fromCharacter(character);
-				if (highestSymbolSofar == null) {
-					highestSymbolSofar = symbol;
-					numberOfHighestNumberAppearences++;
-				} else if (symbol == highestSymbolSofar) {
-					numberOfHighestNumberAppearences++;
-					if (numberOfHighestNumberAppearences)
-				}
-				else if (highestSymbolSofar.getIntValue() < symbol.getIntValue()) {
-					throw new MalformedCurrencyException("A roman symbol bigger the the previous was found to the right of the former.");
-				}
-				
-				arabicValue += symbol.getIntValue();
-				lastSymbol = symbol;
-				
-			} catch (MalformedCurrencyException ex) {
-				throw new CurrencyConversionException(ex.getMessage());
-			}
-		}
 
-		return new ArabicNumber(arabicValue);
-	}
-	*/
-	
+	/**
+	 * Builds an ArabicNumber from a string.
+	 * 
+	 * @param representation The string that contains the number.
+	 * @return The created ArabicNumber.
+	 * @throws MalformedNumberException In case there's not a recognized integer value inside the string.
+	 */
 	public static ArabicNumber fromString(String representation) throws MalformedNumberException {
 		Integer extractedValue = null;
 		try {
@@ -53,6 +42,12 @@ public final class ArabicNumber implements NumberFormat {
 		return new ArabicNumber(extractedValue);
 	}
 	
+	/**
+	 * Builds an ArabicNumber from an integer.
+	 * 
+	 * @param representation The integer to get an ArabicNumber from.
+	 * @return The created ArabicNumber. 
+	 */
 	public static ArabicNumber fromInt(int representation) {
 		return new ArabicNumber(representation);
 	}
@@ -72,7 +67,9 @@ public final class ArabicNumber implements NumberFormat {
 		return String.valueOf(representation);
 	}
 
-	@Override
+	/**
+	 * Returns the integer value of this number.
+	 */
 	public int getIntValue() {
 		return representation;
 	}

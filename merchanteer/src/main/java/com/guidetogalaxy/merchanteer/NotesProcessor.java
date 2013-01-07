@@ -18,20 +18,39 @@ import com.guidetogalaxy.merchanteer.numberFormat.VogonDialect;
 import com.guidetogalaxy.merchanteer.numberFormat.VogonNumber;
 import com.guidetogalaxy.merchanteer.util.Tuple;
 
+/**
+ * Responsible for reading the merchant's notes, interpreting sentences and questions,
+ * converting among number formats, currencies and also answering pertinent questions.
+ * 
+ * @author flávio coutinho
+ *
+ */
 public class NotesProcessor {
 
-	//private final String filePathString;
 	private final InputStream input;
 	private final List<Tuple<NotesLine, String>> questions;
 	private final List<Tuple<String, String>> skippedLines;
 	private static final Logger LOGGER = Logger.getLogger(NotesProcessor.class.getName());
 
+	/**
+	 * Creates a NotesProcessor that is bound to an input that can read text in the format
+	 * of the notes.
+	 * 
+	 * @param input an InputStream from a source input containing text from the merchant's notes. 
+	 */
 	public NotesProcessor(InputStream input) {
 		this.input = input;
 		this.questions = new ArrayList<>();
 		this.skippedLines = new ArrayList<>();
 	}
 	
+	/**
+	 * Processes the notes contained in the input that this NotesProcessor is bound.
+	 * The output is written on the provided output stream.
+	 * 
+	 * @param out OutputStream in which the output of reading the notes is written to.
+	 * @throws IOException In case an IO error happens when writing the output or reading the input.
+	 */
 	public void process(OutputStream out) throws IOException {
 		this.questions.clear();
 
@@ -51,14 +70,26 @@ public class NotesProcessor {
 		// traverses the list of questions and give a proper answer to them
 		for (Tuple<NotesLine, String> t : questions) {
 			try {
-				answerQuestion(t.x, t.y, out);
+				answerQuestion(t.getX(), t.getY(), out);
 			} catch (CurrencyConversionException|MalformedNumberException ex) {
-				skippedLines.add(new Tuple<>(t.y, ex.getMessage()));
+				skippedLines.add(new Tuple<>(t.getY(), ex.getMessage()));
 			}
 		}
 		
+		LOGGER.info(String.format("Lines skipped: %d", skippedLines.size()));
+		// TODO display information about lines skipped on the output (besides log)
 	}
 	
+	/**
+	 * Processes one line of the input. This function just interprets the sentence from the notes.
+	 * If it is a question, it saves it to be answered later, when all the lines have been read and interpreted,
+	 * so the order of the lines on the notes do not need to be guaranteed with questions only coming after
+	 * the other sentences.
+	 * 
+	 * @param line The line of text of the input being processed.
+	 * @throws NotesFormatException In case an error happens when interpreting the line.
+	 * @throws MalformedNumberException If a number in this line is not in a recognized format (Roman, Arabic, Vogon).
+	 */
 	private void processLine(String line) throws NotesFormatException, MalformedNumberException {
 		LOGGER.info(String.format("Reading line: %s", line));
 
@@ -126,6 +157,16 @@ public class NotesProcessor {
 		}
 	}
 	
+	/**
+	 * Answers a question that has been pre-processed.
+	 * 
+	 * @param type The type of the question.
+	 * @param question The question statement.
+	 * @param out The output to write to.
+	 * @throws IOException In case there's an IO error when writing to the output.
+	 * @throws CurrencyConversionException If it was not possible to convert between the currencies provided by the question statement.
+	 * @throws MalformedNumberException If one or more of the number on the question statement was/were not in a recognized format (Roman, Arabic, Vogon).
+	 */
 	private void answerQuestion(NotesLine type, String question, OutputStream out) throws IOException, CurrencyConversionException, MalformedNumberException {
 		LOGGER.info(String.format("Answering question: %s of type %s.", question, type));
 		Matcher m = type.getPattern().matcher(question);
@@ -168,7 +209,12 @@ public class NotesProcessor {
 		out.write('\n');
 	}
 	
-	
+	/**
+	 * The enumeration of recognized line formats for the merchant's notes to be processed.
+	 * 
+	 * @author flávio coutinho
+	 *
+	 */
 	private enum NotesLine {
 		VOGON_ROMAN_MAPPING				(NotesLineType.DEFINITION, 	"^([a-z]+) is ([I|V|X|L|C|D|M])$",							ResponseLine.NO_RESPONSE),
 		VOGON_CURRENCY_QUOTATION		(NotesLineType.DEFINITION, 	"^((?:[a-z]+ )+)([A-Z]\\w+) is (\\d+) ([A-Z]\\w+)$",		ResponseLine.NO_RESPONSE),
@@ -186,18 +232,42 @@ public class NotesProcessor {
 			this.response = response;
 		}
 		
+		/**
+		 * Returns the type of the notes line (question, definition, unknown etc.).
+		 *  
+		 * @return the type of the notes line (question, definition, unknown etc.).
+		 */
 		NotesLineType getType() {
 			return type;
 		}
 		
+		/**
+		 * Returns the regex pattern that represents this notes line format to be used to parse and extract
+		 * information from actual notes lines
+		 * .
+		 * @return the regex pattern that represents this notes line format.
+		 */
 		Pattern getPattern() {
 			return pattern;
 		}
 		
+		/**
+		 * Returns the response text expected for this line, properly filled with the correct
+		 * values (numbers, currency names etc.).
+		 * 
+		 * @param responseParams an array with objects to fill in the response text.
+		 * @return the response text filled with the correct values.
+		 */
 		String getResponse(Object... responseParams) {
 			return String.format(response.formattedString, responseParams);
 		}
 		
+		/**
+		 * The responses expected from the program after the lines have been read and processed.
+		 *  
+		 * @author flávio coutinho
+		 *
+		 */
 		enum ResponseLine {
 			NO_RESPONSE(""),
 			ANSWER_VOGON_ARABIC_VALUE("%s is %d"),
@@ -212,6 +282,12 @@ public class NotesProcessor {
 		}
 	}
 	
+	/**
+	 * An enumeration of the types of notes lines expected from the merchant's notes.
+	 * 
+	 * @author flávio coutinho
+	 *
+	 */
 	private enum NotesLineType {
 		DEFINITION,
 		QUESTION,

@@ -6,6 +6,12 @@ import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
+/**
+ * A formatter class to be used to print shorter log phrases (1 line only).
+ * 
+ * @author flávio coutinho
+ *
+ */
 public class ShortLogFormatter extends Formatter {
 
 	private static final DateFormat dateFormatter = new SimpleDateFormat("hh:mm:ss");

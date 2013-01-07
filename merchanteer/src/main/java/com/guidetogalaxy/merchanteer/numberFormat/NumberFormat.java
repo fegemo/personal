@@ -1,5 +1,12 @@
 package com.guidetogalaxy.merchanteer.numberFormat;
 
+/**
+ * A format of representing numbers. All implementing classes need to be able
+ * to be translated to a common, calculable format, which is integers.
+ * 
+ * @author flávio coutinho
+ *
+ */
 public interface NumberFormat {
 	/**
 	 * Returns an int value of a number, despite of its format.

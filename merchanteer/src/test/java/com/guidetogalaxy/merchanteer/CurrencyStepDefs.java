@@ -10,6 +10,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+/**
+ * Contains the implementation of the currency feature file.
+ * 
+ * @author flávio coutinho
+ *
+ */
 public class CurrencyStepDefs {
 	
 	private Double converted = null;

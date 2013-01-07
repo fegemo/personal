@@ -12,6 +12,12 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+/**
+ * Contains the implementation of the number format feature files.
+ * 
+ * @author flávio coutinho
+ *
+ */
 public class RomanStepDefs {
 	
 	private String letters;
@@ -91,4 +97,9 @@ public class RomanStepDefs {
 	public void the_conversion_should_fail_as_the_number_cannot_be_represented_in_roman_notation() {
 		assertNull("the conversion to roman should have failed but did not", this.roman); 
 	}
+	
+	@Then("^I get the number  in roman$")
+	public void I_get_the_number_in_roman() throws Throwable {
+	    assertNull("There should not be a converted roman number, as the conversion should have failed.", this.roman);
+	}	
 }
