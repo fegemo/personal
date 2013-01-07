@@ -3,7 +3,6 @@ package com.guidetogalaxy.merchanteer;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -36,7 +35,7 @@ public class NotesProcessor {
 	public void process(OutputStream out) throws IOException {
 		this.questions.clear();
 
-		try (Scanner scanner = new Scanner(input, StandardCharsets.UTF_8.name())) {
+		try (Scanner scanner = new Scanner(input)) {
 			String line = null;
 			while (scanner.hasNextLine()) {
 				line = scanner.nextLine();
@@ -165,7 +164,7 @@ public class NotesProcessor {
 			break;
 		}
 		
-		out.write(response.getBytes(StandardCharsets.UTF_8));
+		out.write(response.getBytes());
 		out.write('\n');
 	}
 	
